@@ -1,22 +1,4 @@
-# functions go here
-
-# Puts series of symbols at start and end of text (for emphasis)
-def statement_generator(text, decoration):
-    
-    # Make string with five characters
-    ends = decoration * 5 
-
-    #add decoration to start and ent of statement
-    statement = "{} {} {}".format(ends, text, ends)
-
-    print()
-    print(statement)
-    print()
-
-    return ""
-
-
-# ask user for domain/unit, checks domain is valid
+# ask user for domain/unit
 def unit_domain():
 
     # list of valid domains
@@ -46,3 +28,10 @@ def unit_domain():
             print(" Please choose a valid unit type!")
             print()
 
+# Main routine goes here
+keep_going = ""
+while keep_going == "":
+    unit_type = unit_domain()
+    print("You chose", unit_type)
+
+    print()
