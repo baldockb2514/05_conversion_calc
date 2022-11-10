@@ -121,27 +121,5 @@ if first_time == "":
     instructions()
 
 # Loop to allow multiple calculations per session
-keep_going = ""
-while keep_going == "":
 
-    # Aks the user for the file type
-    chosen_domain = unit_domain()
-    print("You chose", chosen_domain)
-
-    # 
-    if chosen_domain =="weight":
-        int_bits()
-
-    # For images, ask for width and height
-    # (must be integers more than / equal to 1)
-    elif data_type == "image":
-       image_bits()
-
-    # For text, ask for a string
-    else:
-        text_bits()
-    
-    print()
-    keep_going = input("Press <enter> to continue or any key to quit ")
-    print()
 
