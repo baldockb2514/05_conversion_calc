@@ -20,7 +20,7 @@ def statement_generator(text, decoration):
 def unit_domain():
 
     # list of valid domains
-    distance_ok = ["length", "distance", "l", "d"]
+    weight_ok = ["length", "distance", "l", "d"]
     time_ok = ["time", "t"]
     mass_ok = ["mass", "weight", "m", "w"]
 
@@ -32,8 +32,8 @@ def unit_domain():
 
         # Checks for valid response and returns distance, time or weight
         
-        if response in distance_ok:
-            return "distance"
+        if response in weight_ok:
+            return "weight"
 
         elif response in time_ok:
             return "time"
@@ -45,34 +45,6 @@ def unit_domain():
             # if response is not valid, output an error
             print(" Please choose a valid unit type!")
             print()
-
-
-# dictionaries depending on domain
-def domain_dictionaries():
-
-  
-    # length/distance unit dictionary
-    length_dict = {
-        "mm": 1000,
-        "cm": 100,
-        "m": 1,
-        "km": 1000
-    }
-
-    # time unit dictionary
-    time_dict = {
-        "ms": 60000,
-        "s": 60,
-        "m": 1,
-        "h": 60
-        }
-
-    # weight unit dictionary
-    weight_dict = {
-        "mg":1000,
-        "g": 1,
-        "kg": 1000
-    }
 
 
 # instructions for user
@@ -88,6 +60,54 @@ def instructions():
     print()
     return ""
 
+
+# dictionary and valid answers for length domain
+def length_units():
+
+    length_dictionary = {
+        mm_ok: 1000,
+        cm_ok: 100,
+        meter_ok: 1,
+        km_ok: 0.001
+    }
+
+    mm_ok = ["mm", "millimeter", "millimetre"]
+    cm_ok = ["cm", "centimeter", "centimetre"]
+    meter_ok = ["m", "meter", "metre"]
+    km_ok = ["km", "kilometer", "kilometre"]
+    length_unit_ok = ["mm", "millimeter", "millimetre", "cm", "centimeter", "centimetre", "m", "meter", "metre", "km", "kilometer", "kilometre"]
+
+
+# dictionary and valid answers for time domain
+def time_units():
+
+    time_dict = {
+        ms_ok: 3600000,
+        s_ok: 3600,
+        minute_ok: 60,
+        h_ok: 1
+    }
+
+    ms_ok = ["ms", "millisecond"]
+    s_ok = ["s", "second"]
+    minute_ok = ["m", "minute"]
+    h_ok = ["h", "hour", "hours"]
+    time_unit_ok = ["ms", "millisecond", "s", "second", "m", "minute", "h", "hour", "hours"]
+
+
+# dictionary and valid answers for weight domain
+def weight_units():
+
+    weight_dict = {
+        mg_ok:1000,
+        g_ok: 1,
+        kg_ok: 0.001
+    }
+
+    mg_ok = ["mg", "milligram"]
+    g_ok = ["g", "gram"]
+    kg_ok = ["kg", "kilogram"]
+    weight_unit_ok = ["mg", "milligram", "g", "gram", "kg", "kilogram"]
 
 
 
@@ -108,8 +128,8 @@ while keep_going == "":
     chosen_domain = unit_domain()
     print("You chose", chosen_domain)
 
-    # For integers, ask for the integer (must be more than / equal to 0)
-    if chosen_domain =="integer":
+    # 
+    if chosen_domain =="weight":
         int_bits()
 
     # For images, ask for width and height
