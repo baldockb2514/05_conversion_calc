@@ -19,27 +19,34 @@ def statement_generator(text, decoration):
 # ask user for domain/unit, checks domain is valid
 def unit_domain():
 
-    # list of valid domains
-    weight_ok = ["length", "distance", "l", "d"]
-    time_ok = ["time", "t"]
-    mass_ok = ["mass", "weight", "m", "w"]
-
     valid = False 
     while not valid:
 
         # ask user for choice and change response to lowercase
-        response = input("Unit type (distance/time/weight) ").lower()
+        response = input("What number would you like to convert?: ").lower()
+
+        # valid responses
+        length_unit_ok = ["mm", "millimeter", "millimetre", "cm", "centimeter", "centimetre", "m", "meter", "metre", "km", "kilometer", "kilometre"]
+        weight_unit_ok = ["mg", "milligram", "g", "gram", "kg", "kilogram"]
+        time_unit_ok = ["ms", "millisecond", "s", "second", "m", "minute", "h", "hour", "hours"]
 
         # Checks for valid response and returns distance, time or weight
         
-        if response in weight_ok:
-            return "weight"
+        if response in weight_unit_ok:
+            domain_unit = weight_domain
 
-        elif response in time_ok:
-            return "time"
+        elif response in time_unit_ok:
+            domain_unit = time_domain
 
-        elif response in mass_ok:
-            return "weight"
+        elif response in length_unit_ok:
+            domain_unit = length_domain
+
+        elif response == "m":
+            want_minute = input("Press <enter> for minutes or any key for meter: ")
+            if want_minute == "":
+                domain_unit = time_domain
+            else:
+                domain_units = length_domain
 
         else:
             # if response is not valid, output an error
@@ -62,7 +69,7 @@ def instructions():
 
 
 # dictionary and valid answers for length domain
-def length_units():
+def length_domain():
 
     length_dictionary = {
         mm_ok: 1000,
@@ -77,9 +84,16 @@ def length_units():
     km_ok = ["km", "kilometer", "kilometre"]
     length_unit_ok = ["mm", "millimeter", "millimetre", "cm", "centimeter", "centimetre", "m", "meter", "metre", "km", "kilometer", "kilometre"]
 
+    # calculations go here
+
+    # ask user for second unit
+
+
+
 
 # dictionary and valid answers for time domain
-def time_units():
+def time_domain():
+
 
     time_dict = {
         ms_ok: 3600000,
@@ -96,7 +110,7 @@ def time_units():
 
 
 # dictionary and valid answers for weight domain
-def weight_units():
+def weight_domain():
 
     weight_dict = {
         mg_ok:1000,
@@ -110,9 +124,8 @@ def weight_units():
     weight_unit_ok = ["mg", "milligram", "g", "gram", "kg", "kilogram"]
 
 
-
 # main routine goes here
-statement_generator("Unit Conversion calculator for Length, Time, & Weight", "-")
+statement_generator("Unit converter for Length, Weight, and Time", "-")
 
 # Display instructions if user has not used the program before
 first_time = input("Press <enter> to see the instructions or any key to continue ")
@@ -121,5 +134,24 @@ if first_time == "":
     instructions()
 
 # Loop to allow multiple calculations per session
+keep_going = ""
+while keep_going == "":
+
+    number_one = input("")
+    domain_unit = unit_domain()
+
+    if domain_unit == weight_domain:
+        weight_domain()
+
+    elif domain_unit == time_domain:
+        time_domain()
+
+    else:
+        length_domain()
+
+    
+    print()
+    keep_going = input("Press <enter> to continue or any key to quit ")
+    print()
 
 
