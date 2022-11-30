@@ -17,10 +17,14 @@ def instructions():
 
     statement_generator("Instructions / Information", "=")
     print()
-    print("Please choose a unit domain (length / time / weight)")
+    print("This conversion calculator only takes three types of units. (Time, Weight, and length).")
     print()
-    print("Please insert the number and it's unit seperatly. Then insert the unit the number will be converted to. ")
+    print("Please input the number and unit you want to convert. When inputting the unit, please us the shortened version.")
+    print("For example; cm for centimeters, kg for kilograms, h for hours.")
     print()
-    print("Complete as many calculations as necessary, pressing <enter> at the end of each calculation or any key to quit.")
+    print("Then input the unit you would like to convert into. Please make sure it is the same type of unit as the first. (Time / Weight / Length)")
+    print()
+    print("Complete as many calculations as necessary, pressing <enter> at the end of each calculation to continue, or any key to quit.")
     print()
     return ""
+

@@ -1,6 +1,8 @@
 # functions go here
 
+import re
 
+# Heading
 def statement_generator(text, decoration):
     
     # Make string with five characters
@@ -16,38 +18,48 @@ def statement_generator(text, decoration):
     return ""
 
 
-# ask user for domain/unit, checks domain is valid
+# ask user for number and first unit, check if valid, output error if not, respond if is
 def unit_domain():
 
-    import re
+
 
     valid = False 
     while not valid:
 
-        # ask user for choice and change response to lowercase
-        response = str(re.split(r'(\d+)', input("What number would you like to convert?: ").lower()))
         global unit_1
-        unit_1 = str(re.sub(r"[^A-Za-z]+", '', response))
         global number
-        number = float(re.sub(r"[^0.-9.]+", '', response))
-        print(unit_1)
-        print(number)
+
 
         # valid responses
-        length_unit_ok = ["km", "kilometer", "kilometre", "kilometers", "kilometres", "meter", "metre", "meters", "metres", "cm", "centimeter", "centimetre", "centimeters", "centimetres", "mm", "millimeter", "millimetre", "millimeters", "millimetres"]
-        weight_unit_ok = ["mg", "milligram", "milligrams", "g", "gram", "grams", "kg", "kilogram", "kilograms"]
-        time_unit_ok = ["h", "hour", "hours", "minute", "minutes", "s", "second", "seconds", "ms", "millisecond", "milliseconds"]
+        length_unit = ["km", "cm", "mm"]
+        weight_unit = ["mg", "g", "kg"]
+        time_unit = ["h", "s", "ms",]
 
+        valid_2 = False
+        while not valid_2:
+
+            response = str(re.split(r'(\d+)', input("What number would you like to convert, and what is it's unit?: ").lower()))
+            unit_1 = re.sub(r"[^A-Za-z]+", '', response)
+            number_str = re.sub(r"[^0.-9.]+", '', response)
+
+            if number_str == "":
+                print("Please input a number!")
+                print()
+
+            else:
+                valid_2 = True
+
+        number = float(number_str)
 
         # Checks for valid response and returns distance, time or weight
         
-        if unit_1 in weight_unit_ok:
+        if unit_1 in weight_unit:
             return "Weight"
 
-        elif unit_1 in time_unit_ok:
+        elif unit_1 in time_unit:
             return "Time"
 
-        elif unit_1 in length_unit_ok:
+        elif unit_1 in length_unit:
             return "Length"
 
         elif unit_1 == "m":
@@ -68,17 +80,23 @@ def instructions():
 
     statement_generator("Instructions / Information", "=")
     print()
-    print("Please choose a unit domain (length / time / weight)")
+    print("This conversion calculator only takes three types of units. (Time, Weight, and length).")
     print()
-    print("Please insert the number and it's unit seperatly. Then insert the unit the number will be converted to. ")
+    print("Please input the number and unit you want to convert. When inputting the unit, please us the shortened version.")
+    print("For example; cm for centimeters, kg for kilograms, h for hours.")
     print()
-    print("Complete as many calculations as necessary, pressing <enter> at the end of each calculation or any key to quit.")
+    print("Then input the unit you would like to convert into. Please make sure it is the same type of unit as the first. (Time / Weight / Length)")
+    print()
+    print("Complete as many calculations as necessary, pressing <enter> at the end of each calculation to continue, or any key to quit.")
     print()
     return ""
 
 
 # calculations for converting length units
 def length_domain():
+
+    # Valid time units
+    length_unit = ["km", "m", "cm", "mm"]
 
     # Dictionary of length units, by how to turn them into meters
     length_dict = {
@@ -88,40 +106,34 @@ def length_domain():
         "km": 0.01
     }
 
-    # convert variable into string for use in dictionary
-    mm_ok = "mm"
-    cm_ok = "cm"
-    meter_ok = "m"
-    km_ok = "km"
+    valid = False 
+    while not valid:
 
-    # Valid time units
-    mm_ok = ["mm", "millimeter", "millimetre", "millimeters", "millimetres"]
-    cm_ok = ["cm", "centimeter", "centimetre", "centimeters", "centimetres"]
-    meter_ok = ["m", "meter", "metre", "meters", "metres"]
-    km_ok = ["km", "kilometer", "kilometre", "kilometers", "kilometres"]
-    length_unit_ok = ["km", "kilometer", "kilometre", "kilometers", "kilometres", "m", "meter", "metre", "meters", "metres", "cm", "centimeter", "centimetre", "centimeters", "centimetres", "mm", "millimeter", "millimetre", "millimeters", "millimetres"]
+        # get the unit to convert into
+        unit_2 = input("What unit would you like to convert to?: ").lower()
+        unit_diff = re.match(unit_2, unit_1)
 
-    # get the unit to convert into
-    unit_2 = input("What unit would you like to convert to?: ").lower()
+        # output error if second unit is not valid
+        if unit_2 not in length_unit:
+            print("Please input a valid unit.")
+            print()
 
-    # output error if second unit is not valid
-    if unit_2 not in length_unit_ok:
-        print("Please input a valid unit.")
-        length_domain()
+        elif unit_diff:
+            print("Please input two different units.")
+            print()
 
-    # look up the value of the first unit
+
+        else:
+            valid = True
+        
+
+    # convert first unit into meters, then into second unit
     multiply_by_1 = length_dict[unit_1]
-
-    # convert the first numbers' unit into meters using division
     in_meters = number / multiply_by_1
-
-    # look up the value of the second unit
     multiply_by_2 = length_dict[unit_2]
-
-    # get the final result by multiplying the number in meters by the second unit
     result = in_meters * multiply_by_2
 
-    # output the final result and rounds to 2 decimals
+    # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
 
 
@@ -136,45 +148,41 @@ def time_domain():
         "h": 1
     }
 
-    # converts variable into string for use in dictionary
-    ms_ok = "ms"
-    s_ok = "s"
-    minute_ok = "m"
-    h_ok = "h"
-
     # Valid time units
-    ms_ok = ["ms", "millisecond", "milliseconds"]
-    s_ok = ["s", "second", "seconds"]
-    minute_ok = ["m", "minute", "minutes"]
-    h_ok = ["h", "hour", "hours"]
-    time_unit_ok = ["h", "hour", "hours", "m", "minute", "minutes", "s", "second", "seconds", "ms", "millisecond", "milliseconds"]
+    time_unit = ["h", "m", "s", "ms"]
 
-    # get the unit to convert into
-    unit_2 = input("What unit would you like to convert to?: ").lower()
+    valid = False 
+    while not valid:
 
-    # outputs error if second unit is not valid
-    if unit_2 not in time_unit_ok:
-        print("Please input a valid unit.")
-        time_domain()
+        # get the unit to convert into
+        unit_2 = input("What unit would you like to convert to?: ").lower()
+        unit_diff = re.match(unit_2, unit_1)
 
-    # look up the value of the first unit
-    multiply_by_1 = time_dict[unit_1]
-    
-    # convert the first numbers' unit into hours using division  
+        # output error if second unit is not valid
+        if unit_2 not in time_unit:
+            print("Please input a valid unit.")
+            print()
+
+        elif unit_diff:
+            print("Please input two different units.")
+            print()
+
+        else:
+            valid = True
+
+    # convert first unit into meters, then into second unit
+    multiply_by_1 = time_dict[unit_1] 
     in_meters = number / multiply_by_1
-
-    # look up the value of the second unit
     multiply_by_2 = time_dict[unit_2]
-
-    # get the final result by multiplying the number in hours by the second unit
     result = in_meters * multiply_by_2
 
-    # output the final result and rounds to 2 decimals
+    # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
 
 
-# calculations for converting weight univts
+# calculations for converting weight units
 def weight_domain():
+
 
     # Dictionary of weight units, by how to turn them into grams
     weight_dict = {
@@ -183,40 +191,36 @@ def weight_domain():
         "kg": 0.001
     }
 
-    # converts variable into string for use in dictionary
-    mg_ok = "mg"
-    g_ok = "g"
-    kg_ok = "kg"
-
     # Valid Weight units
-    mg_ok = ["mg", "milligram", "milligrams"]
-    g_ok = ["g", "gram", "grams"]
-    kg_ok = ["kg", "kilogram", "kilograms"]
-    weight_unit_ok = ["mg", "milligram", "milligrams", "g", "gram", "grams", "kg", "kilogram", "kilograms"]
+    weight_unit = ["mg", "g", "kg"]
 
-    # get the unit to convert into
-    unit_2 = input("What unit would you like to convert to?: ").lower()
+    valid = False 
+    while not valid:
 
-    # outputs error if second unit is not valid
-    if unit_2 not in weight_unit_ok:
-        print("Please input a valid unit.")
-        weight_domain()
+        # get the unit to convert into
+        unit_2 = input("What unit would you like to convert to?: ").lower()
+        unit_diff = re.match(unit_2, unit_1)
 
-    # look up the value of the first unit
+        # output error if second unit is not valid
+        if unit_2 not in weight_unit:
+            print("Please input a valid unit.")
+            print()
+
+        elif unit_diff:
+            print("Please input two different units.")
+            print()
+            
+        else:
+            valid = True
+
+    # convert first unit into meters, then into second unit
     multiply_by_1 = weight_dict[unit_1]
-    
-    # convert the first numbers unit into grams using division
     in_meters = number / multiply_by_1
-
-    # look up the value of the second unit
     multiply_by_2 = weight_dict[unit_2]
-
-    # get the final result by multiplying the number in grams by the second unit
     result = in_meters * multiply_by_2
 
-    # output the final result and rounds to 2 decimals
+    # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
-
 
 
 # main routine goes here
@@ -237,15 +241,16 @@ while keep_going == "":
     if domain_unit =="Weight":
         weight_domain()
 
+
     elif domain_unit =="Time":
         time_domain()
 
     else:
         length_domain()
 
-    
     print()
     keep_going = input("Press <enter> to continue or any key to quit ")
     print()
 
-
+statement_generator("Thanks for using the conversion calculator!", "*")
+print()

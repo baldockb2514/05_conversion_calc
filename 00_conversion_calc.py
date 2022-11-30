@@ -110,16 +110,14 @@ while keep_going == "":
 
     # For integers, ask for the integer (must be more than / equal to 0)
     if chosen_domain =="integer":
-        int_bits()
+        ()
 
     # For images, ask for width and height
     # (must be integers more than / equal to 1)
-    elif data_type == "image":
-       image_bits()
+    
 
     # For text, ask for a string
-    else:
-        text_bits()
+
     
     print()
     keep_going = input("Press <enter> to continue or any key to quit ")
