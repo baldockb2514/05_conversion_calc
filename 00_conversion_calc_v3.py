@@ -1,6 +1,5 @@
 # functions go here
 
-import re
 
 # Heading
 def statement_generator(text, decoration):
@@ -21,7 +20,7 @@ def statement_generator(text, decoration):
 # ask user for number and first unit, check if valid, output error if not, respond if is
 def unit_domain():
 
-
+    import re
 
     valid = False 
     while not valid:
@@ -44,6 +43,10 @@ def unit_domain():
 
             if number_str == "":
                 print("Please input a number!")
+                print()
+
+            elif float(number_str ) == 0:
+                print("Please enter a number more than 0.")
                 print()
 
             else:
@@ -71,7 +74,7 @@ def unit_domain():
 
         else:
             # if response is not valid, output an error
-            print(" Please choose a valid unit!")
+            print("Please choose a valid unit!")
             print()
 
 
@@ -94,6 +97,8 @@ def instructions():
 
 # calculations for converting length units
 def length_domain():
+
+    import re
 
     # Valid time units
     length_unit = ["km", "m", "cm", "mm"]
@@ -128,10 +133,10 @@ def length_domain():
         
 
     # convert first unit into meters, then into second unit
-    multiply_by_1 = length_dict[unit_1]
-    in_meters = number / multiply_by_1
-    multiply_by_2 = length_dict[unit_2]
-    result = in_meters * multiply_by_2
+    divide_by = length_dict[unit_1]
+    in_meters = number / divide_by
+    multiply_by = length_dict[unit_2]
+    result = in_meters * multiply_by
 
     # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
@@ -139,6 +144,8 @@ def length_domain():
 
 # calculations for converting time units
 def time_domain():
+
+    import re
 
     # Dictionary of time units, by how to turn them into hours
     time_dict = {
@@ -171,10 +178,10 @@ def time_domain():
             valid = True
 
     # convert first unit into meters, then into second unit
-    multiply_by_1 = time_dict[unit_1] 
-    in_meters = number / multiply_by_1
-    multiply_by_2 = time_dict[unit_2]
-    result = in_meters * multiply_by_2
+    divide_by = time_dict[unit_1] 
+    in_meters = number / divide_by
+    multiply_by = time_dict[unit_2]
+    result = in_meters * multiply_by
 
     # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
@@ -183,6 +190,7 @@ def time_domain():
 # calculations for converting weight units
 def weight_domain():
 
+    import re
 
     # Dictionary of weight units, by how to turn them into grams
     weight_dict = {
@@ -214,10 +222,10 @@ def weight_domain():
             valid = True
 
     # convert first unit into meters, then into second unit
-    multiply_by_1 = weight_dict[unit_1]
-    in_meters = number / multiply_by_1
-    multiply_by_2 = weight_dict[unit_2]
-    result = in_meters * multiply_by_2
+    divide_by = weight_dict[unit_1]
+    in_meters = number / divide_by
+    multiply_by = weight_dict[unit_2]
+    result = in_meters * multiply_by
 
     # output the final result and round to 2 decimals
     print("%.2f" % number, unit_1, "=", "%.2f" % result, unit_2)
